@@ -1,39 +1,61 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-function HomeScreen() {
+function Feed() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
+      <Text>Feed Screen</Text>
     </View>
   );
 }
 
-function SettingsScreen() {
+function Notifications() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+      <Text>Notifications Screen</Text>
     </View>
   );
 }
 
-const Tab = createMaterialTopTabNavigator();
+function Profile() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Profile Screen</Text>
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator  initialRouteName="Feed">
+      <Drawer.Screen
+        name="Feed"
+        component={Feed}
+        options={{ drawerLabel: 'Home' }}
+      />
+      <Drawer.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{ drawerLabel: 'Updates' }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{ drawerLabel: 'Profile' }}
+      />
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarLabelStyle: { fontSize: 12 },
-          tabBarItemStyle: { width: 100 },
-          tabBarStyle: { backgroundColor: 'powderblue' },
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
+      <MyDrawer />
     </NavigationContainer>
   );
 }
